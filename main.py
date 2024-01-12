@@ -46,8 +46,12 @@ try:
                             f"PRIVMSG {channel} :Calc got called with the calculation: {calculation} and the answer is {answer}\r\n".encode(
                                 "utf-8"))
 
-                    if ">restard" in data:
-                        pass
+                    if ">reload" in data:
+                        irc.send(
+                            f"PRIVMSG {channel} :RELOADE\r\n".encode(
+                                "utf-8"))
+                        time.sleep(1)
+                        restart()
 
                     if ">op" in data:
                         start_index = data.find(">op") + len(">op") + 1
@@ -55,15 +59,18 @@ try:
                         arg = data[start_index:end_index]
 
                         print(">op got called")
-
+                        '''
                         if arg != "view":
                             operators += [arg]
                             time.sleep(1)
                             irc.send(f"PRIVMSG {channel} :Op'ed user {arg}\r\n".encode("utf-8"))
-
-                        if arg == "view":
+                        '''
+                        if arg == "list":
                             time.sleep(1)
                             irc.send(f"PRIVMSG {channel} :Op'ed users are {operators}\r\n".encode("utf-8"))
+                        if arg == "add":
+                            time.sleep(1)
+                            irc.send(f"PRIVMSG {channel} :TEST todo neuer command >relode\r\n".encode("utf-8"))
 
                     if ">help" in data:
                         print("Help comand got called")
