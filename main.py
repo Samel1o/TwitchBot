@@ -1,5 +1,6 @@
 from setup import *
 
+
 try:
     while True:
         data = irc.recv(4096).decode("utf-8")
@@ -29,6 +30,20 @@ try:
                     irc.send("QUIT\r\n".encode("utf-8"))
                     irc.close()
                     exit()
+                if ">calc" in data:
+                    start_index = data.find(">calc") + len(">calc") + 1
+                    end_index = data.find("\r\n")
+                    calculation = data[start_index:end_index]
+                    print(">calculate got called")
+                    try:
+                        answer = eval(calculation)
+                    except:
+                        answer = "ERROR"
+                    time.sleep(1)
+                    irc.send(f"PRIVMSG {channel} :Calc got called with the calculation: {calculation} and the answer is {answer}\r\n".encode("utf-8"))
+
+                    if ">restard" in data:
+                        pass
         else:
             pass
 except KeyboardInterrupt:

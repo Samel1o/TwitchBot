@@ -2,12 +2,13 @@ import socket
 import time
 from dotenv import load_dotenv
 import os
+import sys
 
 load_dotenv()
 
 server = "irc.chat.twitch.tv"
 port = 6667
-channel = "#castcrafter"
+channel = "#treeed"
 bot_username = "samelloBot"
 
 irc = socket.socket()
