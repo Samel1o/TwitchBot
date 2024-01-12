@@ -8,7 +8,7 @@ load_dotenv()
 
 server = "irc.chat.twitch.tv"
 port = 6667
-channel = "#treeed"
+channel = "#treeedbot"
 bot_username = "samelloBot"
 operators = ["treeed", "same1lo"]
 

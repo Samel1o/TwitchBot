@@ -69,6 +69,7 @@ try:
                         print("Help comand got called")
                         time.sleep(1)
                         irc.send(f"PRIVMSG {channel} :>exit exits, >echo [args] echos, >help prints this, >op [user] op's the user, >op view views the op'ed, >calc [args] calculates\r\n".encode("utf-8"))
+                    
         else:
             pass
 except KeyboardInterrupt:
