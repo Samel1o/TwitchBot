@@ -1,5 +1,6 @@
-from setup import *
+import time
 
+from setup import *
 
 try:
     while True:
@@ -11,12 +12,12 @@ try:
             user_index_start = data.find(":") + 1
             user_index_end = data.find("!")
             username = data[user_index_start:user_index_end]
-    
+
             if data.startswith("PING"):
                 irc.send("PONG\r\n".encode("utf-8"))
                 print("PING / PONG")
 
-            if username in ["same1lo", "Treeed"]:
+            if username in operators:
                 if ">echo" in data:
                     start_index = data.find(">echo") + len(">echo") + 1
                     end_index = data.find("\r\n")
@@ -39,11 +40,31 @@ try:
                         answer = eval(calculation)
                     except:
                         answer = "ERROR"
-                    time.sleep(1)
-                    irc.send(f"PRIVMSG {channel} :Calc got called with the calculation: {calculation} and the answer is {answer}\r\n".encode("utf-8"))
 
-                    if ">restard" in data:
-                        pass
+                    time.sleep(1)
+                    irc.send(
+                        f"PRIVMSG {channel} :Calc got called with the calculation: {calculation} and the answer is {answer}\r\n".encode(
+                            "utf-8"))
+
+                if ">restard" in data:
+                    pass
+
+                if ">op" in data:
+                    start_index = data.find(">op") + len(">op") + 1
+                    end_index = data.find("\r\n")
+                    arg = data[start_index:end_index]
+
+                    print(">op got called")
+
+                    if arg != "view":
+                        operators += [arg]
+                        time.sleep(1)
+                        irc.send(f"PRIVMSG {channel} :Op'ed user {arg}\r\n".encode("utf-8"))
+
+                    if arg == "view":
+                        time.sleep(1)
+                        irc.send(f"PRIVMSG {channel} :Op'ed users are {operators}\r\n".encode("utf-8"))
+
         else:
             pass
 except KeyboardInterrupt:

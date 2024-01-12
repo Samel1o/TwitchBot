@@ -10,6 +10,7 @@ server = "irc.chat.twitch.tv"
 port = 6667
 channel = "#treeed"
 bot_username = "samelloBot"
+operators = ["treeed", "same1lo"]
 
 irc = socket.socket()
 irc.connect((server, port))
