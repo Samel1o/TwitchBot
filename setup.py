@@ -5,12 +5,10 @@ import os
 
 load_dotenv()
 
-
 server = "irc.chat.twitch.tv"
 port = 6667
 channel = "#castcrafter"
 bot_username = "samelloBot"
-
 
 irc = socket.socket()
 irc.connect((server, port))
