@@ -20,7 +20,7 @@ while True:
             exit()
 
     # Check if the message contains ">echo" and extract the message
-    if username in ["#####", "#####", "#####", "#####", ]:
+    if username in ["same1lo", "Treeed"]:
         if ">echo" in data:
             start_index = data.find(">echo") + len(">echo") + 1
             end_index = data.find("\r\n")
