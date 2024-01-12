@@ -2,6 +2,8 @@ import time
 
 from setup import *
 
+irc.send(f"PRIVMSG {channel} :JannikSamsonBot started\r\n".encode("utf-8"))
+
 try:
     while True:
         data = irc.recv(4096).decode("utf-8")
@@ -48,7 +50,7 @@ try:
 
                     if ">reload" in data:
                         irc.send(
-                            f"PRIVMSG {channel} :RELOADE\r\n".encode(
+                            f"PRIVMSG {channel} :reloading...\r\n".encode(
                                 "utf-8"))
                         time.sleep(1)
                         restart()
@@ -59,18 +61,20 @@ try:
                         arg = data[start_index:end_index]
 
                         print(">op got called")
-                        '''
-                        if arg != "view":
-                            operators += [arg]
-                            time.sleep(1)
-                            irc.send(f"PRIVMSG {channel} :Op'ed user {arg}\r\n".encode("utf-8"))
-                        '''
-                        if arg == "list":
+
+                        irc.send(f"PRIVMSG {channel} :Op call with args {arg.split(" ")}\r\n".encode("utf-8"))
+
+                        argList = arg.split(" ")
+
+                        if argList[0] == "list":
                             time.sleep(1)
                             irc.send(f"PRIVMSG {channel} :Op'ed users are {operators}\r\n".encode("utf-8"))
-                        if arg == "add":
+
+                        if argList[0] == "add":
+                            operators += argList[1]
                             time.sleep(1)
-                            irc.send(f"PRIVMSG {channel} :TEST todo neuer command >relode\r\n".encode("utf-8"))
+                            irc.send(f"PRIVMSG {channel} :Opperating user: {argList[1]}, succseded\r\n".encode("utf-8"))
+
 
                     if ">help" in data:
                         print("Help comand got called")
