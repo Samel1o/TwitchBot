@@ -1,3 +1,3 @@
 # TwitchBot
 
-In the Setup.py file under oauth_token you need to pass you oauth token. Untill I created an private account for the bot!
+In the directory where the setup.py file lies needs to be an file calld .env and it needs to contain the oauth token!
