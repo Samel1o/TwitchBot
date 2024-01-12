@@ -27,7 +27,8 @@ try:
 
                         time.sleep(1)
 
-                        irc.send(f"PRIVMSG {channel} :{username} send the message: {message_to_echo}\r\n".encode("utf-8"))
+                        irc.send(
+                            f"PRIVMSG {channel} :{username} send the message: {message_to_echo}\r\n".encode("utf-8"))
 
                     if ">exit" in data:
                         irc.send("QUIT\r\n".encode("utf-8"))
@@ -62,9 +63,9 @@ try:
 
                         print(">op got called")
 
-                        irc.send(f"PRIVMSG {channel} :Op call with args {arg.split(" ")}\r\n".encode("utf-8"))
-
                         argList = arg.split(" ")
+                        irc.send(f"PRIVMSG {channel} :Op call with args {argList}\r\n".encode("utf-8"))
+
 
                         if argList[0] == "list":
                             time.sleep(1)
@@ -73,14 +74,15 @@ try:
                         if argList[0] == "add":
                             operators += argList[1]
                             time.sleep(1)
-                            irc.send(f"PRIVMSG {channel} :Opperating user: {argList[1]}, succseded\r\n".encode("utf-8"))
-
+                            irc.send(f"PRIVMSG {channel} :Opperating user: {argList[1]}, did not succsede why i dont now\r\n".encode("utf-8"))
 
                     if ">help" in data:
                         print("Help comand got called")
                         time.sleep(1)
-                        irc.send(f"PRIVMSG {channel} :>exit exits, >echo [args] echos, >help prints this, >op [user] op's the user, >op view views the op'ed, >calc [args] calculates\r\n".encode("utf-8"))
-                    
+                        irc.send(
+                            f"PRIVMSG {channel} :>exit exits, >echo [args] echos, >help prints this, >op [user] op's the user, >op view views the op'ed, >calc [args] calculates\r\n".encode(
+                                "utf-8"))
+
         else:
             pass
 except KeyboardInterrupt:
