@@ -15,12 +15,20 @@ def restart():
     import os
     os.execv(sys.executable, ['python'] + sys.argv)
 
+def sendMSG(channel, message):
+    irc.send(f"PRIVMSG {channel} :{message}\r\n".encode("utf-8"))
+
+def username_in_list(allowed_operators, username):
+    return username in allowed_operators
+
 
 server = "irc.chat.twitch.tv"
 port = 6667
 channel = "#treeedbot"
 bot_username = "JannikSamsonBot"
 operators = ["treeed", "same1lo"]
+
+waitTime = 0.1
 
 
 irc = socket.socket()
