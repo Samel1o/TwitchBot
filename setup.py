@@ -19,8 +19,9 @@ def restart():
 server = "irc.chat.twitch.tv"
 port = 6667
 channel = "#treeedbot"
-bot_username = "samelloBot"
+bot_username = "JannikSamsonBot"
 operators = ["treeed", "same1lo"]
+
 
 irc = socket.socket()
 irc.connect((server, port))
