@@ -1,3 +1,3 @@
 from setup import *
 
-def testcommand(): print("testcommand")
+def testcommand(): print("testcodmmand")
