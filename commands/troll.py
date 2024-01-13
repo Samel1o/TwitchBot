@@ -1,6 +1,6 @@
 from setup import *
 
-def troll_command(data, channel): #TODO diesen Command sollen nur Moderatoren des jeweiligen Channels ausführen können, bzw. wir beide halt.
+def troll_command(data, channel, username): #TODO diesen Command sollen nur Moderatoren des jeweiligen Channels ausführen können, bzw. wir beide halt.
     start_index = data.find(">troll") + len(">troll") + 1
     end_index = data.find("\r\n")
     arg = data[start_index:end_index]

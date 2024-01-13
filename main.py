@@ -10,8 +10,18 @@ from commands.op import *
 from commands.help import help_command
 from commands.userlist import userlist_command
 from commands.troll import troll_command
+from commands.sendto import send_command
 
 allowed_operators = ["treeed", "same1lo"]
+
+
+irc = socket.socket()
+irc.connect((server, port))
+
+irc.send(f"PASS {os.getenv("oauth_token")}\r\n".encode("utf-8"))
+irc.send(f"NICK {bot_username}\r\n".encode("utf-8"))
+irc.send(f"JOIN {channel}\r\n".encode("utf-8"))
+
 
 def reconnect():
     irc.send("QUIT\r\n".encode("utf-8"))
@@ -54,14 +64,11 @@ try:
                     elif ">op" in data:
                         op_command(data, operators, channel, allowed_operators, username)
                     elif ">troll" in data:
-                        troll_command(data, channel)
+                        troll_command(data, channel, username)
                     elif ">help" in data:
                         help_command(channel)
-                    elif ">t" in data:
-                        print("send msg")
-                        sendMSG(channel, 'Text command')
-                        testcommand()
-
+                    elif ">sendto" in data:
+                        send_command(data)
         except ConnectionAbortedError:
             print("Connection to Server lost. Try reconnecting.")
             reconnect()

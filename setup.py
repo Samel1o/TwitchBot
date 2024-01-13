@@ -30,6 +30,7 @@ operators = ["treeed", "same1lo"]
 
 waitTime = 0.1
 
+
 irc = socket.socket()
 irc.connect((server, port))
 
