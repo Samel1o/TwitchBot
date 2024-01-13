@@ -11,5 +11,4 @@ def send_command(data):
 
     setup.sendMSG(setup.channel, f"{argList}")
 
-    if argList:
-        setup.sendMSG(argList[0])
+    setup.sendMSG(f"#{argList[0]}", argList[1])
