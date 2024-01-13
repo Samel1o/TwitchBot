@@ -187,7 +187,8 @@ try:
         except ConnectionAbortedError:
             print("Connection to Server lost. Try reconnecting.")
             reconnect()
-                
+
+#Kann wieder rausgemacht werden nur für push    
 
 except KeyboardInterrupt:
     irc.send("QUIT\r\n".encode("utf-8"))
