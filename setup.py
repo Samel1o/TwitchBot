@@ -1,7 +1,7 @@
 import socket
 import time
 from dotenv import load_dotenv
-import os
+from os import getenv, execv
 import sys
 import json
 
@@ -15,7 +15,7 @@ def restart():
     print("restart now")
 
     import os
-    os.execv(sys.executable, ['python'] + sys.argv)
+    execv(sys.executable, ['python'] + sys.argv)
 
 def sendMSG(channel, message):
     irc.send(f"PRIVMSG {channel} :{message}\r\n".encode("utf-8"))
@@ -32,9 +32,26 @@ operators = ["treeed", "same1lo"]
 
 waitTime = 0.1
 
-irc = socket.socket()
-irc.connect((server, port))
 
-irc.send(f"PASS {os.getenv("oauth_token")}\r\n".encode("utf-8"))
-irc.send(f"NICK {bot_username}\r\n".encode("utf-8"))
-irc.send(f"JOIN {channel}\r\n".encode("utf-8"))
+json_oauth_token = json.loads(getenv("oauth_token"))
+
+def switchOAUTH(user):
+    global irc
+    global botuser
+    
+    irc = socket.socket()
+    irc.connect((server, port))
+    
+    if user == "test":
+        oauth_token = json_oauth_token["treeed"][0]
+        botuser = json_oauth_token["treeed"][1]
+    else:
+        oauth_token = json_oauth_token["samello"][0]
+        botuser = json_oauth_token["samello"][1]
+    
+    irc.send(f"PASS {oauth_token}\r\n".encode("utf-8"))
+    irc.send(f"NICK {bot_username}\r\n".encode("utf-8"))
+    irc.send(f"JOIN {channel}\r\n".encode("utf-8"))
+
+switchOAUTH("")
+

@@ -1,7 +1,9 @@
 from setup import *
 
 def todo_command(data):
-    start_index = data.find(">todo") + len(">todo") + 1
+    sendMSG(channel, "To hard to code for my skill level, so im skipping it for now!")
+
+'''   start_index = data.find(">todo") + len(">todo") + 1
     end_index = data.find("\r\n")
     arg = data[start_index:end_index]
     argList = arg.split(" ")
@@ -28,5 +30,5 @@ def todo_command(data):
     if argList[0] == "toggle":
         time.sleep(waitTime)
         sendMSG(channel, "Test check")
-        
+        '''
     
