@@ -18,10 +18,10 @@ def troll_command(data, channel, username): #TODO diesen Command sollen nur Mode
                 for a in range(num_messages):
                     irc.send(f"PRIVMSG {channel} :{target_user} :tf: 🔔\r\n".encode("utf-8"))
 
-                    if a % 20 == 0:
+                    if a + 1 == 0:
                         time.sleep(2)
                     else:
-                        time.sleep(0.02)
+                        time.sleep(0.2)
 
             except ValueError:
                 irc.send(f"PRIVMSG {channel} :Invalid number of messages.\r\n".encode("utf-8"))

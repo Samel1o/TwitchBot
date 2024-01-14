@@ -7,8 +7,5 @@ def send_command(data):
     end_index = data.find("\r\n")
     arg = data[start_index:end_index]
     argList = arg.split(" ")
-
-
-    setup.sendMSG(setup.channel, f"{argList}")
-
-    setup.sendMSG(f"#{argList[0]}", argList[1])
+    
+    setup.sendMSG(f"#{argList[0]}", " ".join(argList[1:]))

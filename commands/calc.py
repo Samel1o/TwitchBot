@@ -1,15 +1,21 @@
 from setup import *
+import math
 
-def calc_command(data,channel):
-    print(">calculate got called")
+def calc_command(data, username):
     start_index = data.find(">calc") + len(">calc") + 1
     end_index = data.find("\r\n")
     calculation = data[start_index:end_index]
+
     try:
+        allowed_functions = ['']
+
+        if calculation in allowed_functions:
+            calculation = calculation.replace(f'{func}(', f'math.{func})')
+
         answer = eval(calculation)
-    except:
-        answer = "ERROR"
+    except Exception as e:
+        answer = f"ERROR: {str(e)}"
+
     time.sleep(waitTime)
-    irc.send(
-        f"PRIVMSG {channel} :{calculation}={answer}\r\n".encode("utf-8"))
     
+    sendMSG(channel, f"@{username} > {calculation} = {answer}")

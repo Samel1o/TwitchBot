@@ -3,6 +3,8 @@ import time
 from dotenv import load_dotenv
 import os
 import sys
+import json
+
 
 load_dotenv()
 
@@ -29,7 +31,6 @@ bot_username = "JannikSamsonBot"
 operators = ["treeed", "same1lo"]
 
 waitTime = 0.1
-
 
 irc = socket.socket()
 irc.connect((server, port))

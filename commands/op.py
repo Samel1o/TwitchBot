@@ -1,39 +1,49 @@
 from setup import *
 
-def op_command(data,operators,channel, allowed_operators, username):
-    print(">op got called")
-
+def op_command(data,operators, username):
     start_index = data.find(">op") + len(">op") + 1
     end_index = data.find("\r\n")
     arg = data[start_index:end_index]
     argList = arg.split(" ")
 
-    sendMSG(channel, f"{arg}, {argList}, {username}")
     if argList[0] == "list":
         time.sleep(waitTime)
         sendMSG(channel, f"Op'ed users are {operators}")
 
     if argList[0] == "add":
 
-        sendMSG(channel, f"add called {len(argList)} {username_in_list(allowed_operators, argList[1])}")
+        sendMSG(channel, f"add called {len(argList)} {username_in_list(operators, argList[1])}")
 
-        if username_in_list(allowed_operators, username):
-            operators += argList[1]
-            allowed_operators += argList[1]
+        if username_in_list(operators, username):
+            operators.append(argList[1])
             time.sleep(waitTime)
             sendMSG(channel, f"Opperating user: {argList[1]} added successfully.")
         else:
             sendMSG(channel, f"Invalid op command format. Usage: >op add [user]")
 
+    if argList[0] == "remove":
+        if username_in_list(operators, argList[1]):
+            if str(argList[1]) in operators:
+                print(f"Operator {argList[1]} found in the list.")
+                if argList[1] not in ["treeed", "same1lo"]:
+                    operators.remove(argList[1])
+                    time.sleep(waitTime)
+                    sendMSG(channel, f"Opperating user: {argList[1]} removed successfully.")
+                else:
+                    print(f"Operator {argList[1]} cannot be removed as an operator.")
+                    sendMSG(channel, f"{username} you cannot remove this user as an operator.")
+        else:
+            time.sleep(waitTime)
+            sendMSG(channel, f"Opperating user: {argList[1]} not found in the list.")
 
 '''
 try:
     if argList[0] == "add":
 
-        sendMSG(channel, f"add called {len(argList)} {username_in_list(allowed_operators, argList[1])}")
-        if len(argList) == 2 and username_in_list(allowed_operators, argList[1]):
+        sendMSG(channel, f"add called {len(argList)} {username_in_list(operators, argList[1])}")
+        if len(argList) == 2 and username_in_list(operators, argList[1]):
             operators += argList[1]
-            allowed_operators += argList[1]
+            operators += argList[1]
             time.sleep(0.2)
             sendMSG(channel, f"Opperating user: {argList[1]} added successfully.")
         else:
@@ -42,7 +52,7 @@ except:
     sendMSG(channel, f"Pleas provide an argument")
 
 if argList[0] == "remove":
-    if len(argList) == 2 and username_in_list(allowed_operators, argList[1]):
+    if len(argList) == 2 and username_in_list(operators, argList[1]):
         if argList[1] in operators:
             print(f"Operator {argList[1]} found in the list.")
             if argList[1] not in ["treeed", "same1lo"]:

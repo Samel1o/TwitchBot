@@ -8,20 +8,11 @@ from commands.exit import exit_command
 from commands.reload import reload_command
 from commands.op import *
 from commands.help import help_command
-from commands.userlist import userlist_command
 from commands.troll import troll_command
 from commands.sendto import send_command
+from commands.todo import todo_command
 
 allowed_operators = ["treeed", "same1lo"]
-
-
-irc = socket.socket()
-irc.connect((server, port))
-
-irc.send(f"PASS {os.getenv("oauth_token")}\r\n".encode("utf-8"))
-irc.send(f"NICK {bot_username}\r\n".encode("utf-8"))
-irc.send(f"JOIN {channel}\r\n".encode("utf-8"))
-
 
 def reconnect():
     irc.send("QUIT\r\n".encode("utf-8"))
@@ -34,6 +25,7 @@ def reconnect():
     irc.send(f"JOIN {channel}\r\n".encode("utf-8"))     
 
 sendMSG(channel, 'JannikSamsonBot started')
+
 try:
     while True:
         try:
@@ -46,29 +38,29 @@ try:
             if data:
                 print(data, end="")
 
-                if data.startswith("PING"):
-                    irc.send("PONG\r\n".encode("utf-8"))
-                    print("PING / PONG")
+                if data.startswith("PING"): irc.send("PONG\r\n".encode("utf-8"))
+
 
                 if username in operators:
                     if ">echo" in data:
                         echo_command(data, username)
-                    elif ">userlist" in data:
-                        userlist_command(data,channel)
                     elif ">exit" in data:
                         exit_command()
                     elif ">calc" in data:
-                        calc_command(data, channel)
+                        calc_command(data, username)
                     elif ">reload" in data:
-                        reload_command(channel)
+                        reload_command()
                     elif ">op" in data:
-                        op_command(data, operators, channel, allowed_operators, username)
+                        op_command(data, operators, username)
                     elif ">troll" in data:
-                        troll_command(data, channel, username)
+                        troll_command(data, username)
                     elif ">help" in data:
-                        help_command(channel)
+                        help_command(username)
                     elif ">sendto" in data:
                         send_command(data)
+                    elif ">todo" in data:
+                        todo_command(data)
+
         except ConnectionAbortedError:
             print("Connection to Server lost. Try reconnecting.")
             reconnect()

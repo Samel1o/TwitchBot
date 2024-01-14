@@ -1,9 +1,8 @@
 from setup import *
 
-def reload_command(channel):
-    print(">reload got called")
-    irc.send(
-        f"PRIVMSG {channel} :reloading...\r\n".encode("utf-8"))
+
+def reload_command():
+    sendMSG(channel, "reloading...")
     time.sleep(waitTime)
     restart()
     
